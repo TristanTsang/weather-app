@@ -15,8 +15,7 @@ async function getForecast(location) {
   const date1 = new Date();
   const date2 = new Date();
   date2.setDate(date2.getDate() + 6);
-  console.log(stringifyDate(date1));
-  console.log(stringifyDate(date2));
+
   try {
     let url =
       "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/" +
@@ -53,7 +52,6 @@ function renderContent(data) {
     " degrees fahrenheit in " +
     data.resolvedAddress;
   for (let i = 0; i < 7; i++) {
-    console.log(data.days[i]);
     const div = document.createElement("div");
     div.classList.add("day");
     const title = document.createElement("h3");
@@ -120,7 +118,6 @@ function hideDropDownMenu() {
 }
 
 async function handleButtonClick(location) {
-  console.log(location);
   hideDropDownMenu();
   forecast.innerHTML = "";
   showLoadingBar();
