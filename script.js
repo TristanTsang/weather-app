@@ -105,7 +105,7 @@ function createDropDownMenu() {
   sanFrancisco.addEventListener("click", () => {
     handleButtonClick("SanFrancisco,CA");
   });
-  div.append(boston, nyc, collegePark, sanFrancisco);
+  div.append(collegePark, boston, nyc, sanFrancisco);
   document.querySelector("#dropdown").appendChild(div);
   div.style.display = "none";
   return div;
