@@ -35,7 +35,6 @@ async function getForecast(location) {
   }
 }
 
-let data = getForecast("Boston,MA,USA");
 const dropDown = document.querySelector(".dropdown");
 const currentForecast = document.querySelector("#current-forecast");
 const forecast = document.querySelector("#forecast");
