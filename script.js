@@ -4,12 +4,28 @@ let url =
   "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/Boston,MA,USA/2025-01-03?key=" +
   API_KEY;
 
+function stringifyDate(date) {
+  const year = date.getFullYear();
+  const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Months are zero-based (0 = January)
+  const day = date.getDate().toString().padStart(2, "0");
+  return year + "-" + month + "-" + day;
+}
+
 async function getForecast(location) {
+  const date1 = new Date();
+  const date2 = new Date();
+  date2.setDate(date2.getDate() + 6);
+  console.log(stringifyDate(date1));
+  console.log(stringifyDate(date2));
   try {
     let url =
       "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/" +
       location +
-      "/2025-01-03?key=" +
+      "/" +
+      stringifyDate(date1) +
+      "/" +
+      stringifyDate(date2) +
+      "?key=" +
       API_KEY;
     let response = await fetch(url, { mode: "cors" });
     response = await response.json();
@@ -37,21 +53,21 @@ function renderContent(data) {
     " degrees fahrenheit in " +
     data.resolvedAddress;
   for (let i = 0; i < 7; i++) {
-    console.log(data.days[0]);
+    console.log(data.days[i]);
     const div = document.createElement("div");
     div.classList.add("day");
     const title = document.createElement("h3");
-    title.textContent = data.days[0].datetime;
+    title.textContent = data.days[i].datetime;
     const description = document.createElement("div");
-    description.textContent = data.days[0].description;
+    description.textContent = data.days[i].description;
     const high = document.createElement("h4");
     high.textContent = "High: ";
     const highData = document.createElement("div");
-    highData.textContent = data.days[0].tempmax;
+    highData.textContent = data.days[i].tempmax;
     const low = document.createElement("h4");
     low.textContent = "Low: ";
     const lowData = document.createElement("div");
-    lowData.textContent = data.days[0].tempmin;
+    lowData.textContent = data.days[i].tempmin;
 
     div.append(title, description, high, highData, low, lowData);
     forecast.appendChild(div);
